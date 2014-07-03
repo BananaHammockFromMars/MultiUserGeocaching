@@ -11,13 +11,54 @@
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCfu6GzIuASRBlIxT7IjczQYtlsoC_4uzo">
     </script>
     <script type="text/javascript">
+      var map;
       function initialize() {
         var mapOptions = {
-          center: new google.maps.LatLng(-34.397, 150.644),
-          zoom: 8
+          //center: new google.maps.LatLng(38.9758939, -94.48257899999999),
+          zoom: 15
         };
-        var map = new google.maps.Map(document.getElementById("map-canvas"),
+        map = new google.maps.Map(document.getElementById("map-canvas"),
             mapOptions);
+
+        var coords = new google.maps.LatLng(38.9758939, -94.48257899999999);
+        var marker = new google.maps.Marker({
+          position: coords,
+          map: map,
+          title: "That's my house!"
+        });
+
+        if(navigator.geolocation){
+          navigator.geolocation.getCurrentPosition(function(position){
+            var positron = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            var infowindow = new google.maps.InfoWindow({
+              map: map,
+              position: positron,
+              content: 'That was easy'
+            });
+            map.setCenter(positron);
+          }, function(){ 
+            handleNoGeolocation(true);
+          });
+        } else{
+          handleNoGeolocation(false);
+        }
+      }
+
+      function handleNoGeolocation(errorFlag){
+        if(errorFlag){
+          var content = 'Error: Geodude is still a-sleeping.'
+        } else {
+          var content = 'Error: You hate Geodude.'
+        }
+
+        var options = {
+          map: map,
+          position: new google.maps.LatLng(38.9758939, -94.48257899999999),
+          content: content
+        }
+
+        var infowindow = new google.maps.InfoWindow(options);
+        map.setCenter(options.position);
       }
       google.maps.event.addDomListener(window, 'load', initialize);
     </script>
