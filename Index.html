@@ -11,52 +11,70 @@
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCfu6GzIuASRBlIxT7IjczQYtlsoC_4uzo">
     </script>
     <script type="text/javascript">
+    //****declare map variable for global scope
       var map;
       function initialize() {
+        //settings for the map to be rendered************
         var mapOptions = {
           //center: new google.maps.LatLng(38.9758939, -94.48257899999999),
           zoom: 15
         };
+        //****set map variable to be the new google map to be rendered****
         map = new google.maps.Map(document.getElementById("map-canvas"),
             mapOptions);
-
+        //coordinates to be passed as parameter in the marker
         var coords = new google.maps.LatLng(38.9758939, -94.48257899999999);
+        //set marker to track fixed destinations
         var marker = new google.maps.Marker({
+          //pass in coordinates variable for fixed position on map
           position: coords,
+          //declare the map to put the marker in
           map: map,
           title: "That's my house!"
         });
-
+        //if browser has permission to track location
         if(navigator.geolocation){
+          //get current position once, pass in current position
           navigator.geolocation.getCurrentPosition(function(position){
+            // create coordinate varibale to pass in based on current position coordinates
             var positron = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            //place an infoWindow at current position on map
             var infowindow = new google.maps.InfoWindow({
               map: map,
               position: positron,
               content: 'That was easy'
             });
+            //center the map on current position
             map.setCenter(positron);
           }, function(){ 
+            //callback error function
             handleNoGeolocation(true);
           });
         } else{
+          //if browser has no access to location
           handleNoGeolocation(false);
         }
       }
 
+      //next goal: watch position
+      
+
+      //function for geolocation issues
       function handleNoGeolocation(errorFlag){
         if(errorFlag){
+          //gelocations isn't working
           var content = 'Error: Geodude is still a-sleeping.'
         } else {
+          //if access to geolocations isn't granted to browser
           var content = 'Error: You hate Geodude.'
         }
-
+        //pass default coordinates to map if no location permission is granted
         var options = {
           map: map,
           position: new google.maps.LatLng(38.9758939, -94.48257899999999),
           content: content
         }
-
+        //default InfoWindow
         var infowindow = new google.maps.InfoWindow(options);
         map.setCenter(options.position);
       }
