@@ -12,22 +12,28 @@
     </script>
     <script type="text/javascript">
     //****declare map variable for global scope
+      var directionsDisplay;
+      var directionsService = new google.maps.DirectionsService();
       var map;
+      var markMe = null;
+      //coordinates on house to be passed as parameter in the marker
+        var homeCoords = new google.maps.LatLng(38.9758939, -94.48257899999999);
       function initialize() {
+        //set up directions renderer
+        directionsDisplay = new google.maps.DirectionsRenderer();
         //settings for the map to be rendered************
         var mapOptions = {
           //center: new google.maps.LatLng(38.9758939, -94.48257899999999),
-          zoom: 15
+          zoom: 11,
+          center: homeCoords
         };
         //****set map variable to be the new google map to be rendered****
         map = new google.maps.Map(document.getElementById("map-canvas"),
             mapOptions);
-        //coordinates to be passed as parameter in the marker
-        var coords = new google.maps.LatLng(38.9758939, -94.48257899999999);
         //set marker to track fixed destinations
         var marker = new google.maps.Marker({
           //pass in coordinates variable for fixed position on map
-          position: coords,
+          position: homeCoords,
           //declare the map to put the marker in
           map: map,
           title: "That's my house!"
@@ -39,13 +45,14 @@
             // create coordinate varibale to pass in based on current position coordinates
             var positron = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
             //place an infoWindow at current position on map
-            var infowindow = new google.maps.InfoWindow({
+            /*var infowindow = new google.maps.InfoWindow({
               map: map,
               position: positron,
-              content: 'That was easy'
-            });
+              content: 'You have been spotted!'
+            });*/
             //center the map on current position
-            map.setCenter(positron);
+            //map.setCenter(positron);
+            directionsDisplay.setMap(map);
           }, function(){ 
             //callback error function
             handleNoGeolocation(true);
@@ -56,9 +63,33 @@
         }
       }
 
-      //next goal: watch position
-      
-
+      function watchMe(){
+        var watchSuccess = function(pos){
+          //set marker image here
+          //set new google latlng
+          var moveMe = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+          if(!markMe){
+            markMe = new google.maps.Marker({
+              position: moveMe,
+              map: map
+            });
+            console.log('Working...');
+          } else{
+            markMe.setPosition(moveMe);
+            console.log('Still working...');
+          }
+          calcRoute(moveMe, homeCoords);
+        };
+        var watchError = function(err){
+          console.log('And... broken!');
+        };
+        var watchOptions = {
+          enableHighAccuracy: false,
+          timeout: 5000,
+          maximumAge: 0
+        };
+        var watchPos = navigator.geolocation.watchPosition(watchSuccess, watchError, watchOptions);
+      }
       //function for geolocation issues
       function handleNoGeolocation(errorFlag){
         if(errorFlag){
@@ -78,7 +109,34 @@
         var infowindow = new google.maps.InfoWindow(options);
         map.setCenter(options.position);
       }
+
+      //next step - Directions API
+      //https://developers.google.com/maps/documentation/javascript/directions
+      //Travel Modes - Walking, Driving
+      function calcRoute(currentcoords, destination){
+        //var start = document.getElementById("start").value;
+        var start = currentcoords;
+        //var end = document.getElementById("end").value;
+        var end = homeCoords;
+
+        var request = {
+          origin: start, 
+          destination: end,
+          travelMode: google.maps.TravelMode.DRIVING
+        };
+        directionsService.route(request, function(result, status) {
+          if(status == google.maps.DirectionsStatus.OK) {
+            directionsDisplay.setDirections(result);
+          }
+        });
+      }
+      
+
+      //Here is where we actually do things
+      //initialize the map and fixed points
       google.maps.event.addDomListener(window, 'load', initialize);
+      //watch the current position
+      google.maps.event.addDomListener(window, 'load', watchMe);
     </script>
   </head>
   <body>
