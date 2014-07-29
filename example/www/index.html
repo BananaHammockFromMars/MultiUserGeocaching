@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="width=1920, user-scalable=no, target-densitydpi=high-dpi">
+        
+        <link rel="stylesheet" href="css/app.css" />
+        <title>OmniboxTV NG</title>
+
+        <script src="js/libs/modernizr/modernizr.js"></script>
+        <script src="https://api.myomnibox.com/v1/dpd.js"></script>
+    </head>
+    <body>
+      <div id="main-contain">
+        <nav class="top-bar">
+          <section class="top-bar-section" id="menu-region">
+            <img src="img/omniboxtv-logo.png" class="lc-logo left" />
+            <div class="right">
+              <ul>
+                <a href="#focus" class="give-me-your-focus hidden">here is a link</a>
+                <li id="live"><a href="#live" class="live">Live TV</a></li>
+                <li id="vod"><a href="#vod" class="vod">On Demand</a></li>
+                <li id="apps"><a href="#apps" class="apps">Apps</a></li>
+                <li><a href="#settings" class="settings">Settings</a></li>
+              </ul>
+              <div class="time-browse">
+              	<a href="#" id="browser" class="browser"></a>
+			  	      <div id="clock" class="time"></div>
+              </div>
+            </div>
+          </section>
+        </nav>
+        <header>
+          <div class="row">  
+            <div class="large-12 columns">
+              <div id="header-region"></div>
+            </div>
+          </div>
+        </header>
+        <div class="row packages">
+          <div class="large-12 columns">
+            <div id="packages-region" class="menu"></div>
+          </div>
+        </div>
+        <div class="row channels-contain">
+          <div class="large-3 columns">
+            <div id="sidebar-region" class="sidebar-scroller"></div>
+          </div>
+          <div class="large-9 columns">
+            <div id="channel-list-region" class="scroller"></div>
+          </div>
+        </div>
+        <script type="text/template" id="tpl-channel">
+        <% loopcount = 0 %>
+        <% _.each(items[0], function(package, pindex) { %>
+          <div class="<%= pindex %>">
+          <% _.each(package, function(category, cindex) { %>
+            <div class="category <%= pindex %>-<%= cindex %>">
+            
+            <% _.each(category, function(item) { %>
+              <div class="channel inline-block <% if (loopcount == 0){ %> active-category <% } %>">
+                <a class="channel-link <%= item.attributes.catalogInfo.publisher %>" href="<%= item.attributes.streamUrl.primary %>" data-id="<%= item.id %>" data-channum="<%= item.attributes.catalogInfo.chanNum %>">
+                  <img src="<%= item.attributes.coverImage.primary %>" />
+                  <span class="title hidden"><%- item.attributes.title %></span>
+                </a>
+              </div>
+              <% loopcount++ %>
+            <% }); %>
+            </div><!-- /.cindex -->
+          <% }); %>
+          </div><!-- /.pindex -->
+        <% }); %>
+        </script>
+        <script type="text/template" id="tpl-vod-channel">
+        <% loopcount = 0 %>
+        <% _.each(items[0], function(package, pindex) { %>
+          <div class="<%= pindex %>">
+          <% _.each(package, function(category, cindex) { %>
+            <div class="category <%= pindex %>-<%= cindex %>">
+            
+            <% _.each(category, function(item) { %>
+              <div class="channel inline-block <% if (loopcount == 0){ %> selected active-category <% } %>">
+                <a class="channel-link <%= item.attributes.catalogInfo.publisher %>" href="<%= item.attributes.streamUrl.primary %>" data-id="<%= item.id %>" data-channum="<%= item.attributes.catalogInfo.chanNum %>">
+                  <img src="<%= item.attributes.coverImage.primary %>" />
+                  <span class="title hidden"><%- item.attributes.title %></span>
+                </a>
+              </div>
+              <% loopcount++ %>
+            <% }); %>
+            </div><!-- /.cindex -->
+          <% }); %>
+          </div><!-- /.pindex -->
+        <% }); %>
+        </script>
+
+        <script type="text/template" id="tpl-category-titles">
+
+            <a href="#" class="parent <%- machineName %>"><%- title %></a>
+            <% var mName = machineName %>
+            <% _.each(categories, function(name, index) { %> 
+              <a class="<% newname = index.toLowerCase() %><%- mName %>-<%= newname %> category-name" href="#"><%= name %></a> 
+
+            <% }); %>
+           
+        </script>
+
+        <script type="text/template" id="tpl-categories">
+          <a href="#live/<%- title %>"><%- title %></a>
+        </script>
+
+        <script type="text/template" id="tpl-play-channel">
+          <% var futureSchedule = _.filter(schedule, function(schedule){
+            mytime = new Date();
+            endtime = new Date(schedule.endTime);
+            if (mytime < endtime) {
+              return true;
+            }
+            else {
+              return false;
+            }
+          }); %>
+            <section class="live-video-container video-container<% if (disabled == true) {%> disabled<%}%>">
+              <div class="disabled-video"></div>
+              <video class="live-video inline-block preview-video" poster="
+              <% if (coverImage.preview){ %> <%- coverImage.preview %> <% } else { %> <%- coverImage.primary %> <% } %>
+                " src="<%- streamUrl.primary %>" width="632" height="356"></video>
+              <span class="live-video-info video-info">
+              	<span class="preview-logo"></span>
+                <% if (futureSchedule.length > 0) { %>
+                  <h3 class="title"><%- futureSchedule[0].program.title %></h3>
+                <%} else { %>
+                  <h3 class="title"><%- title %></h3>
+                <% } %>
+                
+                <!--<p class="desc"><%- description %></p>-->
+                
+                <% var showCount = 0 %>
+                <div class="desc"><% _.each(futureSchedule, function(schedule){ %>
+                  <% newstarttime = new Date(schedule.startTime).toLocaleTimeString() %>
+                  <% if (showCount == 0){ %>
+                    <div class="show first">
+                      <!--<span class="now-playing">Now Playing: </span>
+                      <span class="title"><%- schedule.program.title %></span><br />-->
+                      <span class="episode-description"><%- schedule.program.shortDescription %></span>
+                    </div>
+                 <% }
+                  else if (0 < showCount && showCount < 3) { %>
+                    <div class="show">
+                      <span class="start-time"><%- newstarttime %></span>
+                      <span class="title"><%- schedule.program.title %></span>
+                    </div>
+                 <% } %>
+                  <% showCount++ %>
+                <%}) %></div>
+                <a class="play button btn watch" href="<%- streamUrl.primary %>" data-id="<%= id %>">PLAY!</a>
+                <div class="disabled-subscribe">Call us to add this to your subscription.</div>
+              </span>
+            </section>
+            <section id="ad-region"><a href="http://graphics.myomnibox.com/ads/bundleinternet.html">ad</a></section>
+            <div id="off-screen-video" class="hidden-video">
+                <video id="vid" src="<%- streamUrl.primary %>" width="540" height="300"></video>
+            </div>
+        </script>
+
+        <script type="text/template" id="tpl-vod-individual-channel">
+            <% var seasoncount = 0 %>
+            <% _.each(catalogInfo, function(season) { %><% seasoncount++ %><% }) %>
+            <% if (seasoncount > 1) { %>
+              <section class="vod-video-container video-container">
+              <video class="vod-video inline-block preview-video" poster="<%- coverImage.primary %>" src="<%- streamUrl.primary %>" width="632" height="356"></video>
+              <span class="vod-video-info video-info">
+                <span class="preview-logo"></span>
+                <h3 class="title"><%- title %></h3>
+                <p class="desc"><%- description %></p>
+                <a class="play button btn watch hidden" href="#">PLAY!</a>
+                <a class="button btn select-episode" href="#">Select Episode</a>
+              </span>
+            </section>
+              <section id="season-episode-container" class='multi-season'>
+              <div class="seasons-container"><ul>
+              <% loopcount = 0 %>
+              <% _.each(catalogInfo, function(season) { %>
+                <% loopcount++ %>
+                <li class="season-<%- loopcount %> season <% if (loopcount == 1){ %> active <% } %>"><h3><%- season.seriesTitle %></h3></li>
+              <% }) %>
+              </ul></div>
+              <div class="episodes-container">
+                <% loopcount = 0 %>
+                <% _.each(catalogInfo, function(season) { %>
+                  <% loopcount++ %>
+                  <div class="season-<%- loopcount %> episodes">
+                    <h3><%- season.seriesTitle %></h3>
+                    <ul>
+                      <li class="back"><< Back to seasons</li>
+                      <% episodecount = 0 %>
+                      <% _.each(season.episodes, function(episode) { %>
+                        <% episodecount++ %>
+                        <li class="episode-<%- episodecount %> episode"><a class="play-episode <%- episode.mediaType %>" href="<%- episode.url.primary %>"><%- episode.title %></a></li>
+                      <% }) %>
+                    </ul>
+                  </div><!-- /.episdoes -->
+                <% }) %>
+              </div>
+            </section>
+            <div id="off-screen-video" class="hidden-video">
+                <video id="vid" src="<%- streamUrl.primary %>" width="540" height="300"></video>
+            </div>
+            <% } /* end of seasoncount if */ else if (seasoncount == 1){ %>
+              <section class="vod-video-container video-container">
+              <video class="vod-video inline-block preview-video" poster="<%- coverImage.primary %>" src="<%- streamUrl.primary %>" width="632" height="356"></video>
+              <span class="vod-video-info video-info inline-block">
+                <span class="preview-logo"></span>
+                <h3 class="title"><%- title %></h3>
+                <p class="desc"><%- description %></p>
+                <a class="play button btn watch hidden" href="#">PLAY!</a>
+                <a class="button btn select-episode" href="#">Select Episode</a>
+              </span>
+            </section>
+              <section id="season-episode-container" class='single-season'>
+              <div class="episodes-container open">
+                <% loopcount = 0 %>
+                <% _.each(catalogInfo, function(season) { %>
+                  <% loopcount++ %>
+                  <div class="season-<%- loopcount %> episodes show">
+                    <ul>
+                      <% episodecount = 0 %>
+                      <% _.each(season.episodes, function(episode) { %>
+                        <% episodecount++ %>
+                        <li class="episode-<%- episodecount %> episode"><a class="play-episode <%- episode.mediaType %>" href="<%- episode.url.primary %>"><%- episode.title %></a></li>
+                      <% }) %>
+                    </ul>
+                  </div><!-- /.episdoes -->
+                <% }) %>
+              </div>
+              </section>
+              <div id="off-screen-video" class="hidden-video">
+                <video id="vid" src="<%- streamUrl.primary %>" width="540" height="300"></video>
+            </div>
+            <% } /* end of else if */ else { %>
+              <section class="vod-video-container video-container">
+              <video class="vod-video inline-block preview-video" poster="<%- coverImage.primary %>" src="<%- streamUrl.primary %>" width="632" height="356"></video>
+              <span class="vod-video-info video-info inline-block">
+                <span class="preview-logo"></span>
+                <h3 class="title"><%- title %></h3>
+                <p class="desc"><%- description %></p>
+                <a class="play button btn watch" href="#">PLAY!</a>
+              </span>
+              <div id="off-screen-video" class="hidden-video">
+                <video id="vid" class="single-video" src="<%- url.primary %>" width="540" height="300"></video>
+              </div>
+            </section>
+              <% console.log('season count is 0') %>
+            <% } /* end of seasoncount else if */ %>
+            
+        </script>
+        <script type="text/template" id="tpl-login-reglogin">
+            <div class="row">
+              <div class="large-6 columns login-container">
+                  <h2><span>Login</span>Already have a subscription?</h2>
+                <form method="post" action="#" id="login-form">
+                    <label>Username: </label>
+                    <input type="text" name="username" />
+                    <label>Password: </label>
+                    <input type="password" name="password" />
+                    <button id="login" value="login">Login</button>
+                </form>
+               </div>
+              <div class="large-6 columns reg-container">
+                  <h2><span>Register</span>Signup for a subscription today!</h2>
+                  <form method="post" action="#" id="reg-form">
+                  	  <fieldset>
+	                      <div class="set">
+		                      <label for="firstName">First Name</label>
+							  <input type="text" name="firstName" autocorrect="off" autocomplete="off" autocapitalize="off" spellcheck="false" required />
+	                      </div>
+	                      <div class="set">
+		                      <label for="lastName">Last Name</label>
+		                      <input type="text" name="lastName" autocorrect="off" autocomplete="off" autocapitalize="off" spellcheck="false" required />
+	                      </div>
+	                      <div class="set">
+	                      	  <label for="username">Desired Username: </label>
+          						  	  <input type="text" name="username" autocorrect="off" autocomplete="off" autocapitalize="off" spellcheck="false" required />
+	                      </div>
+	                      <div class="set">
+		                      <label for="email">Email</label>
+		                      <input type="email" name="email" autocorrect="off" autocomplete="off" autocapitalize="off" spellcheck="false" required/>
+	                      </div>
+                      </fieldset>
+                      <fieldset>	
+	                      <div class="set">
+	                      	  <label>Password: </label>
+						  	  <input type="password" name="password" id="password" title="required" required />
+	                      </div>
+	                      <div class="set">
+						  	  <label for="password2">Retype Password: </label>
+						  	  <input type="password" name="password2" id="password2" title="required" required />
+	                      </div>
+                      </fieldset>
+                      <fieldset>
+                        <div>
+                            <label class="inline-block">Activation Code: </label>
+                            <input class="inline-block" type="text" name="activationCode" autocorrect="off" autocomplete="off" autocapitalize="off" spellcheck="false" required />
+                          </div>
+                      </fieldset>
+                      
+                      <!--<fieldset>
+                      	  <div class="set">
+		                      <label for="address">Address</label>
+		                      <input type="text" name="address" />
+                      	  </div>
+                      	  <div class="set">
+	                      	  <label for="address2">Address 2</label>
+						  	  <input type="text" name="address2" />
+                      	  </div>
+                      	  <div class="set">
+	                      	  <label for="city">City</label>
+						  	  <input type="text" name="city" />
+                      	  </div>
+                      	  <div class="set">
+                      	  	  <label for="state">State</label>
+					  	  	  <input type="text" name="state" />
+                      	  </div>
+                      	  <div class="set">
+                      	  	  <label for="zip">Zip</label>
+					  	  	  <input type="text" name="zip" />
+                      	  </div>
+                      	  <div class="set">
+                      	  	  <label for="country">Country</label>
+					  	  	  <input type="text" name="country" />
+                      	  </div>
+                      	  <div class="set">
+                      	  	  <label for="phone">Phone</label>
+					  	  	  <input type="phone" name="phone" />
+                      	  </div>
+                      </fieldset>-->
+                      <button id="register" value="register">Register</button>
+                  </form>
+              </div>
+            </div>
+        </script>
+        <script type="text/template" id="tpl-show-subscriptions">
+          <div class="row">
+                <div class="large-10 large-offset-1 columns subscribe-container">
+                  <h2><span>Signup</span>pick a subscription</h2>
+                  <% if (typeof items != "undefined" && $.isEmptyObject(items) == false) { %>
+                    <form method="post" action="#" id="subscribe-form" class="choose-subscription">  
+                    <div class="wrapper">                  
+                      <% radioloopcount = 0 %>
+                      <% console.log('this is items in the template') %>
+                      <% console.log(items) %>
+                      <% _.each(items, function(product){ %>
+                          <div class="large-6 columns product-wrapper">
+                            <input 
+                              id="group-<%- product.product.id %>"
+                              type="radio" 
+                              name="productSelection" 
+                              value="<%- product.product.id %>" 
+                              class="h1-input"
+                              <% if (radioloopcount == 0){ %> checked<% } %>
+                            >
+                            <div class="inline-block">
+                            <strong><label class="h1" for="group-<%- product.product.id %>"><%- product.product.name + ":" %></label></strong>
+                            <% price = (product.product.price_in_cents/100).toFixed( 2 ) %>
+                            <span class="h1">$<%- price %></span>
+
+                            <span class="description"><%- product.product.description %></span>
+                            </div>
+                            <div class="sub-selections <% if (radioloopcount == 0){ %> open<% } %>">
+                              <% _.each(product.product.components, function(component){ %> 
+                                <div>
+                                  <input 
+                                    id="group-<%- component.component.id %>"
+                                    type="checkbox" 
+                                    name="componentSelector" 
+                                    value="<%- component.component.id %>"
+                                  >
+                                  <div class="inline-block">
+                                  <strong>
+                                    <label for="group-<%- component.component.id %>">
+                                      <%- component.component.name + ":" %>
+                                    </label>
+                                  </strong>
+                                  <% if($.isEmptyObject(component.component.prices) == false) { %> 
+                                    $<%- component.component.prices[0].unit_price %>
+                                  <% }else { %>
+                                    $<%- component.component.unit_price %>
+                                  <% } %>
+                                  <span class="description"><%- component.component.description %></span>
+                                  </div>
+                                </div>
+                              <% }) %>
+                            </div>
+                          </div>
+                          <% radioloopcount++ %>
+                      <% }) %>
+                    </div>
+                    <button class="next" id="subscribe" value="next right">Next</button>
+                    </form>
+                  <% } %>
+                </div>
+          </div>
+        </script>
+        <script type="text/template" id="tpl-login-subscribe">
+            <div class="row">
+
+                <div class="large-10 large-offset-1 columns subscribe-container">
+                    <h2><span>Signup</span><!--Signup for Basic service at $19.95 per month.--></h2>
+                    <form method="post" action="#" id="subscribe-form">
+                        <fieldset>
+	                        <div class="set">
+		                        <label for="firstName">First Name</label>
+		                        <input type="text" name="firstName" required />
+	                        </div>
+	                        <div class="set">
+		                        <label for="lastName">Last Name</label>
+		                        <input type="text" name="lastName" required />
+	                        </div>
+	                        <div class="set">
+		                        <label for="email">Email</label>
+		                        <input type="email" name="email" required/>
+	                        </div>
+                        </fieldset>
+                        <fieldset>
+	                        <div class="set">
+		                        <label for="card_number">Credit Card Number</label>
+		                        <input type="text" name="card_number" required />
+	                        </div>
+	                        <div class="set">
+		                        <label for="expiration_month">Expiration Month</label>
+		                        <input type="text" name="expiration_month" required />
+	                        </div>
+	                        <div class="set">
+		                        <label for="expiration_year">Expiration Year</label>
+		                        <input type="text" name="expiration_year" required />
+	                        </div>
+                        </fieldset>
+                        <fieldset>
+	                        <div class="set">
+		                        <label for="address">Billing Address</label>
+		                        <input type="text" name="address" />
+	                        </div>
+	                        <div class="set">
+		                        <label for="address2">Billing Address 2</label>
+		                        <input type="text" name="address_2" />
+	                        </div>
+	                        <div class="set">
+		                        <label for="city">Billing City</label>
+		                        <input type="text" name="city" />
+	                        </div>
+	                        <div class="set">
+		                        <label for="state">Billing State</label>
+		                        <input type="text" name="state" />
+	                        </div>
+	                        <div class="set">
+		                        <label for="zip">Billing Zip</label>
+		                        <input type="text" name="zip" />
+	                        </div>
+	                        <div class="set">
+		                        <label for="country">Billing Country</label>
+		                        <input type="text" name="country" />
+	                        </div>
+                        </fieldset>
+                        
+                        <button id="subscribe" value="subscribe">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+        </script>
+        <script type="text/template" id="tpl-apps">
+        <ul class="app-container small-block-grid-8">
+        <% loopcount = 0 %>
+          <% _.each(items, function(app) { %>
+            <% if (app.package != 'com.adobe.flashplayer' &&
+                    app.package != 'com.google.android.gms' &&
+                    app.package != 'com.myomnibox.omnibox' &&
+                    app.package != 'com.OmniBoxSubscribe' &&
+                    app.package != 'com.cvte.setup.welcome' &&
+                    app.package != 'com.mbx.settingsmbox' &&
+                    app.package != 'com.android.gallery3d' &&
+                    app.package != 'com.cvte.dlna.dmr'){ %>
+              <li class="individual-app <% if (loopcount == 0){ %> active selected <% } %>">
+              <a class="app" href="<%- app.uri %>" data-id="<%- app.package %>"><img class="app-icon" src="<%- app.path %>" /></a><br>
+              <% var AppName= app.name; if (AppName.length >= 15){AppName = AppName.substring(0, 14) + '...'} %><%- AppName %><br>
+              </li>
+              <% loopcount++ %>
+            <% } %>
+          <% }) %>
+        </ul>
+        </script>
+        <script type="text/template" id="tpl-spinner">
+          <div id="spinner">we are loading!!!</div>
+        </script>
+
+        <script type="text/javascript" src="cordova.js"></script>
+        <script data-main="js/main" src="js/libs/requirejs/require.js"></script>
+    
+        <script type="text/javascript">
+            /*app.initialize();*/
+        </script>
+      </div><!-- /#main-contain -->
+      <div id="overlay-region"></div>
+      <div id="status-messages"></div>
+      <ol class="joyride-list" data-joyride>
+        <li data-id="live" data-text="Next" data-options="tip_location: top; ">
+          <h4>Live TV</h4>
+          <p>Live TV consist of over 500 live channels with options including our basic, premier, latin, and on demand channels. Check your subscriptions to confirm you have the right package that best suits you.</p>
+        </li>
+        <li data-id="vod" data-class="custom so-awesome" data-text="Next">
+          <h4>On Demand</h4>
+          <p>On Demand basic includes 21 genres, 400 channels and over 25,000 titles. Upgrade to iFlix for only $2.99 per month and expand your viewing choices.</p>
+        </li>
+        <li data-id="apps" data-button="Next" data-options="tip_location:top;tip_animation:fade">
+          <h4>Apps</h4>
+          <p>The app section includes the Google Play Store and preloaded shortcuts to the most popular applications being used today. Not seeing what you're looking for? Simply click on the Google Play Store icon and search millions of applications available on your OmniBox.</p>
+        </li>
+        <li data-button="End">
+          <h4>Finished</h4>
+          <p>Enjoy your new Omnibox!</p>
+        </li>
+      </ol>
+    </body>
+</html>
