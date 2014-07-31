@@ -27,6 +27,8 @@ require.config({
 //you should be able to console log all of the callback arguments
 require(["marionette", 'app'], function(marionette,KitschyCache){
 
+    KitschyCache.start();
+
     /* javscript thigns go here */
 
 });

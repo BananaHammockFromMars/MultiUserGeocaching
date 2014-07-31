@@ -7,7 +7,12 @@
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCfu6GzIuASRBlIxT7IjczQYtlsoC_4uzo"></script>
 </head>
 <body>
- <div id="map-canvas"/>
+ <div id="map-region"></div>
 </body>
 <script data-main="js/main" src="js/libs/requirejs/require.js"></script>
+<script type="text/template" id="map-empty">
+	<div class="map-full" style="height:100%; width:100%;">
+		<%- map %>
+	</div>
+</script>
 </html>
