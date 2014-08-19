@@ -15,7 +15,7 @@ define(['jquery',
 		};
 
 		KitschyCache.getCurrentRoute = function(){
-			return Backbone.history.fragment
+			return Backbone.history.fragment;
 		};
 
 		KitschyCache.on('initialize:after', function(){
