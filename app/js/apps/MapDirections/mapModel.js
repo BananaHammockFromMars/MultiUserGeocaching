@@ -9,7 +9,6 @@ define(['app'],
                     zoom: 11,
                     center: this.destination
                 },
-    			map: new google.maps.Map(this.target, this.mapOptions),
     			password: 'P@ssw0rd1'
     		}
     	});

@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=yes" />
-    <link url="app/css/app.css"/>
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCfu6GzIuASRBlIxT7IjczQYtlsoC_4uzo"></script>
-    <script type="text/javascript" src="app/js/libs/requirejs/require.js"></script>
-    <script type="text/javascript" src="app/js/main.js"></script>
-    <script type="text/javascript" src="app/js/libs/jquery/dist/jquery.min.js"></script>
-    <script type="text/javascript" src="app/js/libs/underscore/underscore.js"></script>
-    <script type="text/javascript" src="app/js/libs/json2/json2.js"></script>
-    <script type="text/javascript" src="app/js/libs/marionette/lib/core/backbone.marionette.js"></script>
-    <script type="text/javascript" src="app/js/libs/backbone/backbone.js"></script>
-    <script type="text/javascript" src="app/js/RouteViews/FirstRoute.js"></script>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCfu6GzIuASRBlIxT7IjczQYtlsoC_4uzo">
+    </script>
   </head>
   <body>
-    <div id="map-canvas"/>
+    <div class="fullScreen">
+      <div id="map-canvas"></div>
+      <div id="panel"></div>
+      <a class="foundIt">Found it!</a>
+    </div>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="scripts/moveabletype.js"></script>
+    <script type="text/javascript" src="scripts/main.js"></script>
+    <link type="text/css" rel="stylesheet" href="css/main.css"/>
   </body>
 </html>

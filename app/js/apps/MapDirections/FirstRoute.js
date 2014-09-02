@@ -8,6 +8,7 @@ define(['app'],
       },
       template: "#map-empty",
     	initialize: function(){
+        this.renderMap();
   	  	// /*var directionsDisplay;
   	   //  var directionsService = new google.maps.DirectionsService();
   	   //  var map;
@@ -33,7 +34,11 @@ define(['app'],
       //   	//handleNoGeolocation(false);
       //   }
       console.log("something worked");
-  	 }
+  	 },
+     renderMap: function(){ 
+      var map = new google.maps.Map($('#map-empty'), this.model.get('mapOptions'))},
   	});
   });
+KitschyCache.MapApp.firstView = new KitschyCache.Destination({model: KitschyCache.MapApp.MapModel});
 });
+
