@@ -2,7 +2,6 @@ function shaltThouPass(){
   var YeShallPass = prompt("What's the password?");
   if(YeShallPass == destinations[currentContext].password){
     refreshContext();
-    $(#panel)
   }
 }
 
