@@ -8,7 +8,9 @@ var destinations = [
   {name: "VML", lat:39.12033729027072, lng: -94.59039379629519, password: "desk" }
 ];
 
-$('.foundIt').on('click', shaltThouPass);
+$('#foundIt').on('click', shaltThouPass);
+$('#directions').on('click', showDirections);
+$('#hideDirections').on('click', hideDirections);
 
 var currentContext = 0;
 var currentDestinationCoords = new google.maps.LatLng(destinations[currentContext]["lat"], destinations[currentContext]["lng"]);

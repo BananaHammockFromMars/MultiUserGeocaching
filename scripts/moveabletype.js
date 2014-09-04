@@ -2,7 +2,18 @@ function shaltThouPass(){
   var YeShallPass = prompt("What's the password?");
   if(YeShallPass == destinations[currentContext].password){
     refreshContext();
+    $(#panel)
   }
+}
+
+function showDirections(){
+  $('#panel').animate({'height': '100%'}, 2000);
+  $('.directions').toggleClass('hidden');
+}
+
+function hideDirections(){
+  $('#panel').animate({'height': '0'}, 2000);
+  $('.directions').toggleClass('hidden');
 }
 
 function setPosition(pos){

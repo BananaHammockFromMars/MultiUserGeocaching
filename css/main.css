@@ -1,13 +1,19 @@
-html { height: 100% }
-body { height: 100%; margin: 0; padding: 0 }
+html { height: 100%; margin: 0; padding: 0;}
+body { height: 97%; margin: 0; padding: 0;}
 .fullScreen{height: 100%; margin: 0; padding: 0; position: relative;}
-#map-canvas { height: 80% }
-.foundIt{
+#map-canvas { height: 93%; margin-bottom: 1rem; }
+.buttons{
 	height: 2rem;
 	width: 6rem;
 	position: absolute;
-	right: 10px;
-	bottom: 10px;
+	bottom: 0;
 	color: white;
-	background: blue;
 }
+.hidden{
+	display:none;
+}
+
+#foundIt{background:blue; right: 10px;}
+.directions{background: green; left: 10px;}
+
+#panel{height:0; overflow: hidden; position: absolute; top: 0; background:white;}
