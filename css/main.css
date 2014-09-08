@@ -14,6 +14,7 @@ body { height: 97%; margin: 0; padding: 0;}
 }
 
 #foundIt{background:blue; right: 10px;}
+#parkedIt{background:black; right: 10px;}
 .directions{background: green; left: 10px;}
 
 #panel{height:0; overflow: hidden; position: absolute; top: 0; background:white;}

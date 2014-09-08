@@ -3,6 +3,14 @@ function shaltThouPass(){
   if(YeShallPass == destinations[currentContext].password){
     refreshContext();
   }
+  $('.finder').toggleClass('hidden');
+}
+
+function stopTheCar(){
+  var walkSpot = new google.maps.LatLng(destinations[currentContext].walk.lat, destinations[currentContext].walk.lng);
+  var marksTheSpot = new google.maps.Marker({position: walkSpot, map: map});
+  directionsDisplay.setMap();
+  $('.finder').toggleClass('hidden');
 }
 
 function showDirections(){
@@ -15,21 +23,28 @@ function hideDirections(){
   $('.directions').toggleClass('hidden');
 }
 
-function setPosition(pos){
-  var googlePos = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
-    return googlePos;
+function loadDirectionRender(){
+  directionsDisplay = new google.maps.DirectionsRenderer();
+  directionsDisplay.setMap(map);
+  directionsDisplay.setPanel(document.getElementById('panel'));
+}
+
+function requestDisplayRoute(){
+  var request = { origin: previousDestinationCoords, destination: currentDestinationCoords, travelMode: google.maps.DirectionsTravelMode.DRIVING };
+  
+  directionsService.route(request, function (response, status) {
+    if (status == google.maps.DirectionsStatus.OK) {
+      directionsDisplay.setMap(map);
+      directionsDisplay.setDirections(response);
+    }
+  });
 }
 
 function refreshContext(){
   previousDestinationCoords = currentDestinationCoords;
   currentContext++;
-  currentDestinationCoords = new google.maps.LatLng(destinations[currentContext]["lat"], destinations[currentContext]["lng"]);
-  travelType = google.maps.TravelMode.DRIVING;
-}
-
-function watchMe(pos){
-    var googlePos = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
-    return googlePos;
+  currentDestinationCoords = new google.maps.LatLng(destinations[currentContext]["drive"]["lat"], destinations[currentContext]["drive"]["lng"]);
+  requestDisplayRoute();
 }
 
 function calcRoute(currentcoords, destination){
@@ -50,36 +65,10 @@ function calcRoute(currentcoords, destination){
   });
 }
 
-function checkDistance(start, end){
-  distanceService.getDistanceMatrix({
-    origins: [start], 
-    destinations: [end],
-    travelMode: travelType
-  }, callbackDistance);
-}
-
-function callbackDistance(response, status){
-	if(status == "OK"){
-		var value = response.rows[0].elements[0].distance.value;
-    if(response.rows[0].elements[0].distance.value < 200){
-      		travelType = google.maps.TravelMode.WALKING;
-          console.log(true + ", " + value);
-    	} else {
-          travelType = google.maps.TravelMode.DRIVING;
-          console.log(false + ", " + value);
-      }
-
-	} else {
-		console.log("Ye've got issues");
-	}
-}
-
 function handleNoGeolocation(errorFlag){
   if(errorFlag){
-    //gelocations isn't working
     var content = 'Error: Geodude is still a-sleeping.'
   } else {
-    //if access to geolocations isn't granted to browser
     var content = 'Error: You hate Geodude.'
   }
   console.log(content);
