@@ -32,7 +32,7 @@ var destinations = [
   
   {name:"The Final Surprise",
   	drive: {lat:39.03279359951246, lng:-94.59280951782569},
-  	walk: {lat:39.03108459957071, lng:-94.59306566878661}
+  	walk: {lat:39.03108459957071, lng:-94.59306566878661},
     password: "upupdowndownleftrightleftrightba"},
 
   {name: "VML", 
