@@ -1,12 +1,12 @@
 var destinations = [
 
   {name:"Cave Spring", 
-  	drive: {lat:38.99427826820344, lng: -94.48326040059322},
+  	drive: {lat:38.994870302481374, lng: -94.48349643498653},
   	walk: {lat:38.992703953997214, lng: -94.48306728154415},
   	password: "grab"},
 
   {name:"Our First Cache", 
-  	drive: {lat:39.002765625952634, lng:-94.30981341834104}, 
+  	drive: {lat:39.00439572262789, lng:-94.3085822844032}, 
   	walk: {lat:39.00256222969929, lng:-94.30901948447263}, 
   	password: "follow"},
   

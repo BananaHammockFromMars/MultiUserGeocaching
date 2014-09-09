@@ -1,17 +1,21 @@
 function initialize(){
-  navigator.geolocation.getCurrentPosition(function(pos){
-    previousDestinationCoords = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
-    requestDisplayRoute();
-  });
-  
-  var marker = new google.maps.Marker({map: map}); 
-  navigator.geolocation.watchPosition(function (position) {
-    var coords = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-    marker.setPosition(coords); 
-    }, 
-    function(err){ console.log(err); }, 
-    {enableHighAccuracy: true, timeout: 2000, maximumAge: 0}
-  );
+  if(navigator.geolocation){
+    navigator.geolocation.getCurrentPosition(function(pos){
+      previousDestinationCoords = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+      requestDisplayRoute();
+    });
+    
+    var marker = new google.maps.Marker({map: map}); 
+    navigator.geolocation.watchPosition(function (position) {
+      var coords = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+      marker.setPosition(coords); 
+      }, 
+      function(err){ console.log(err); }, 
+      {enableHighAccuracy: true, timeout: 2000, maximumAge: 0}
+    );
+  } else{
+    alert("Say Please!");
+  }
 }
 
 $('#parkedIt').on('click', stopTheCar);
