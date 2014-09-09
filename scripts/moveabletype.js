@@ -14,12 +14,12 @@ function stopTheCar(){
 }
 
 function showDirections(){
-  $('#panel').animate({'height': '100%'}, 2000);
+  $('#panel').animate({'height': '100%'}, 1000);
   $('.directions').toggleClass('hidden');
 }
 
 function hideDirections(){
-  $('#panel').animate({'height': '0'}, 2000);
+  $('#panel').animate({'height': '0'}, 1000);
   $('.directions').toggleClass('hidden');
 }
 

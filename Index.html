@@ -7,16 +7,15 @@
     </script>
   </head>
   <body>
-    <div class="fullScreen">
-      <div id="map-canvas"></div>
-      <div id="panel"></div>
-      <div id="buttonContainer">
-        <a id="directions" class="buttons directions">Directions</a>
-        <a id="hideDirections" class="buttons directions hidden">Hide</a>
-        <a id="parkedIt" class="buttons finder">Found it!</a>
-        <a id="foundIt" class="buttons finder hidden">Found it!</a>
-      </div>
+    <div id="map-canvas"></div>
+    <div id="panel"></div>
+    <div id="buttonContainer">
+      <a id="directions" class="buttons directions"><div class="tripleMenu"></div></a>
+      <a id="hideDirections" class="buttons directions hidden"><div class="icon">&#xf00d;</div></a>
+      <a id="parkedIt" class="buttons finder"><div class="icon">&#xf183;</div></a>
+      <a id="foundIt" class="buttons finder hidden"><div class="icon">&#xf00c;</div></a>
     </div>
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="scripts/collection.js"></script>
     <script type="text/javascript" src="scripts/moveabletype.js"></script>
