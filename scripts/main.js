@@ -22,6 +22,7 @@ $('#parkedIt').on('click', stopTheCar);
 $('#foundIt').on('click', shaltThouPass);
 $('#directions').on('click', showDirections);
 $('#hideDirections').on('click', hideDirections);
+$('#oops').on('click', requestDisplayRoute);
 
 var currentContext = 0;
 

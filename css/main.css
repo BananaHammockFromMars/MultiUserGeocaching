@@ -25,6 +25,14 @@ body { height: 98%; margin: 0; padding: 0; background: black; position: relative
 	margin: 5px 4px;
 	font-size: 32px;
 }
+#oops{
+	background:#BB3138;
+	right: 80px;
+}
+#oops .buttonText{
+	font-size: 14px;
+	margin: 10px 3px;
+}
 #parkedIt{
 	background:#BB3138;
 	right: 20px;
@@ -34,7 +42,7 @@ body { height: 98%; margin: 0; padding: 0; background: black; position: relative
 	font-size: 30px;
 }
 #directions{
-	background: #886451;
+	background: #528881;
 	left: 20px;
 }
 #directions .icon{
@@ -42,7 +50,7 @@ body { height: 98%; margin: 0; padding: 0; background: black; position: relative
 	font-size: 25px;
 }
 #hideDirections{
-	background: #528881;
+	background: #886451;
 	left: 20px;
 }
 .icon{

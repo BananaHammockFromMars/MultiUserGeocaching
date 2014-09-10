@@ -10,7 +10,7 @@ function stopTheCar(){
   var walkSpot = new google.maps.LatLng(destinations[currentContext].walk.lat, destinations[currentContext].walk.lng);
   var marksTheSpot = new google.maps.Marker({position: walkSpot, map: map});
   directionsDisplay.setMap();
-  $('.finder').toggleClass('hidden');
+  $('.finder, #oops').toggleClass('hidden');
 }
 
 function showDirections(){
