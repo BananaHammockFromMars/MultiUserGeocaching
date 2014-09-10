@@ -30,6 +30,7 @@ var currentDestinationCoords =
     new google.maps.LatLng(destinations[currentContext]["drive"]["lat"], destinations[currentContext]["drive"]["lng"]);
 
 var previousDestinationCoords;
+var marksTheSpot;
 
 var mapOptions = {
       zoom: 11, 
