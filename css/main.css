@@ -1,7 +1,7 @@
 html { height: 100%; margin: 0; padding: 0;}
 body { height: 98%; margin: 0; padding: 0; background: black; position: relative;}
 .fullScreen{height: 100%; margin: 0; padding: 0; position: relative;}
-#map-canvas { height: 93%; margin-bottom: 1rem; }
+#map-canvas { height: 85%; margin-bottom: 1rem; }
 .buttons{
 	height: 2rem;
 	width: 6rem;
