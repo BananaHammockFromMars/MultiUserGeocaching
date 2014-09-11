@@ -17,6 +17,7 @@ function stopTheCar(){
 function oops(){
   marksTheSpot.setMap();
   requestDisplayRoute();
+  $('.finder, #oops').toggleClass('hidden');
 }
 
 function showDirections(){
