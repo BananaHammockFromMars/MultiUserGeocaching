@@ -7,14 +7,16 @@ function shaltThouPass(){
 }
 
 function stopTheCar(){
-  walkSpot = new google.maps.LatLng(destinations[currentContext].walk.lat, destinations[currentContext].walk.lng);
-  var marksTheSpot = new google.maps.Marker({position: walkSpot, map: map});
+  var walkSpot = new google.maps.LatLng(destinations[currentContext].walk.lat, destinations[currentContext].walk.lng);
+  marksTheSpot = new google.maps.Marker({position: walkSpot, map: map});
   directionsDisplay.setMap();
   $('.finder, #oops').toggleClass('hidden');
 }
 
-function clearWalkMark(){
+
+function oops(){
   marksTheSpot.setMap();
+  requestDisplayRoute();
 }
 
 function showDirections(){
@@ -34,7 +36,6 @@ function loadDirectionRender(){
 }
 
 function requestDisplayRoute(){
-  clearWalkMark();
   var request = { origin: previousDestinationCoords, destination: currentDestinationCoords, travelMode: google.maps.DirectionsTravelMode.DRIVING };
   
   directionsService.route(request, function (response, status) {
