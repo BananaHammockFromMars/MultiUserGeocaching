@@ -13,7 +13,6 @@ function stopTheCar(){
   $('.finder, #oops').toggleClass('hidden');
 }
 
-
 function oops(){
   marksTheSpot.setMap();
   requestDisplayRoute();
@@ -21,13 +20,22 @@ function oops(){
 }
 
 function showDirections(){
-  $('#panel').animate({'height': '100%'}, 1000);
+  $('#panel').animate({'height': '90%'}, 1000);
   $('.directions').toggleClass('hidden');
 }
 
 function hideDirections(){
   $('#panel').animate({'height': '0'}, 1000);
   $('.directions').toggleClass('hidden');
+}
+
+function showPersonalNotes(){
+  $('#personalPanel').animate({'width': '100%'}, 1000);
+  $('.details').toggleClass('hidden');
+}
+function hidePersonalNotes(){
+  $('#personalPanel').animate({'width': '0'}, 1000);
+  $('.details').toggleClass('hidden');
 }
 
 function loadDirectionRender(){

@@ -20,9 +20,12 @@ function initialize(){
 
 $('#parkedIt').on('click', stopTheCar);
 $('#foundIt').on('click', shaltThouPass);
-$('#directions').on('click', showDirections);
+$('#showDirections').on('click', showDirections);
 $('#hideDirections').on('click', hideDirections);
 $('#oops').on('click', oops);
+$('#oops2').on('click', oops);
+$('#showTextDetails').on('click', showPersonalNotes);
+$('#hideTextDetails').on('click', hidePersonalNotes);
 
 var currentContext = 0;
 
