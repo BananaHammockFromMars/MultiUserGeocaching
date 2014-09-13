@@ -13,8 +13,9 @@ function initialize(){
       function(err){ console.log(err); }, 
       {enableHighAccuracy: true, timeout: 2000, maximumAge: 0}
     );
+    setTimeout(transitionNotes(), 5000);
   } else{
-    alert("Say Please!");
+    alert("Your GPS is ruining everything.");
   }
 }
 
@@ -34,6 +35,7 @@ var currentDestinationCoords =
 
 var previousDestinationCoords;
 var marksTheSpot;
+var marksTheFriend;
 
 var mapOptions = {
       zoom: 11, 

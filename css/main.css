@@ -1,8 +1,8 @@
 html { height: 100%; margin: 0; padding: 0;}
 body { height: 98%; margin: 0; padding: 0; background: black; position: relative;}
 .fullScreen{height: 100%; margin: 0; padding: 0; position: relative;}
-#map-container {height: 90%; margin-bottom: 1rem;}
-#map-canvas {height:100%; z-index:-1;}
+#map-container {height: 90%;}
+#map-canvas {height:100%; z-index:-1; position: initial !important;}
 #panel{
 	height:0;
 	overflow: scroll;
@@ -12,21 +12,23 @@ body { height: 98%; margin: 0; padding: 0; background: black; position: relative
 	z-index:800;
 }
 #personalPanel{
-	height:90%;
-	width: 0;
+	height:0;
+	width: 100%;
 	overflow: scroll;
 	position: absolute;
-	top:0;
-	bottom:0;
+	bottom:10%;
 	left: 0;
 	background:white;	
 	z-index:800;
 }
 
+#personalPanel .buttons{
+	position: initial;
+	height: 40px;
+	width: 40px;
+}
 
 .buttons{
-	height: 2rem;
-	width: 6rem;
 	position: absolute;
 	bottom: 0;
 	color: white;
@@ -96,4 +98,26 @@ body { height: 98%; margin: 0; padding: 0; background: black; position: relative
 .glow{
 	color: rgb(200, 200, 0);
 	box-shadow: 0 0 10px 0 rgb(255, 255, 0);
+}
+
+#parkedIt-faux{
+	background:#BB3138;
+}
+#parkedIt-faux .icon{
+	margin: 4px 12px;
+	font-size: 30px;
+}
+#foundIt-faux{
+	background:#885159;
+}
+#foundIt-faux .icon{
+	margin: 5px 4px;
+	font-size: 32px;
+}
+.details-faux{
+	background:#885159;
+}
+.details-faux .icon{
+	margin: 9px 6px;
+	font-size: 24px;
 }
