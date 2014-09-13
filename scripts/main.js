@@ -53,7 +53,7 @@ var directionsService = new google.maps.DirectionsService();
 var directionsDisplay;
 loadDirectionRender();
 
-var amber = {url:'images/goofy.png', size: new google.maps.Size(36, 48)};
+var amber = {url:'images/goofy.png', size: new google.maps.Size(29, 38)};
 var marksIt = {url: 'images/marksthespot.png', size: new google.maps.Size(17, 12)};
 var extra = {url: 'images/questionmark.png', size: new google.maps.Size(11, 15)}; 
 //var distanceService = new google.maps.DistanceMatrixService();
