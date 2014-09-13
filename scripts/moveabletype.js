@@ -84,6 +84,7 @@ function refreshContext(){
   currentContext++;
   currentDestinationCoords = new google.maps.LatLng(destinations[currentContext]["drive"]["lat"], destinations[currentContext]["drive"]["lng"]);
   requestDisplayRoute();
+  transitionNotes();
 }
 
 function calcRoute(currentcoords, destination){
