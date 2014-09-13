@@ -1,11 +1,9 @@
 function initialize(){
   if(navigator.geolocation){
-    navigator.geolocation.getCurrentPosition(function(pos){
-      previousDestinationCoords = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
-      requestDisplayRoute();
-    });
     
-    var marker = new google.maps.Marker({map: map}); 
+    currentLatLng();
+    
+    var marker = new google.maps.Marker({map: map, icon: amber}); 
     navigator.geolocation.watchPosition(function (position) {
       var coords = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
       marker.setPosition(coords); 
@@ -55,6 +53,9 @@ var directionsService = new google.maps.DirectionsService();
 var directionsDisplay;
 loadDirectionRender();
 
+var amber = {url:'images/goofy.png', size: new google.maps.Size(36, 48)};
+var marksIt = {url: 'images/marksthespot.png', size: new google.maps.Size(17, 12)};
+var extra = {url: 'images/questionmark.png', size: new google.maps.Size(11, 15)}; 
 //var distanceService = new google.maps.DistanceMatrixService();
 
 google.maps.event.addDomListener(window, 'load', initialize);

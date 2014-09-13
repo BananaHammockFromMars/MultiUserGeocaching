@@ -7,24 +7,24 @@ function shaltThouPass(){
       if(friend.toLowerCase() == destinations[currentContext].friend.toLowerCase()){
         marksTheFriend.setMap();
         refreshContext();
-    		$('.finder').toggleClass('hidden');
+        $('.finder, #oops').toggleClass('hidden');
       } else {
         alert("What's that other thing on the map?");
       }
     } else {
       refreshContext();
-	  $('.finder').toggleClass('hidden');
+	  $('.finder, #oops').toggleClass('hidden');
     }
   }
 }
 
 function stopTheCar(){
   var walkSpot = new google.maps.LatLng(destinations[currentContext].walk.lat, destinations[currentContext].walk.lng);
-  marksTheSpot = new google.maps.Marker({position: walkSpot, map: map});
+  marksTheSpot = new google.maps.Marker({position: walkSpot, map: map, icon: marksIt});
   
   if(destinations[currentContext].extra){
     var friendSpot = new google.maps.LatLng(destinations[currentContext].extra.lat, destinations[currentContext].extra.lng);
-    marksTheFriend = new google.maps.Marker({position: friendSpot, map: map});
+    marksTheFriend = new google.maps.Marker({position: friendSpot, map: map, icon: extra});
   }
   
   directionsDisplay.setMap();
@@ -33,6 +33,8 @@ function stopTheCar(){
 
 function oops(){
   marksTheSpot.setMap();
+  marksTheFriend.setMap();
+  currentLatLng();
   requestDisplayRoute();
   $('.finder, #oops').toggleClass('hidden');
 }
@@ -98,6 +100,13 @@ function calcRoute(currentcoords, destination){
       directionsDisplay.setDirections(result);
     }
   });
+}
+
+function currentLatLng(){
+  navigator.geolocation.getCurrentPosition(function(pos){
+      previousDestinationCoords = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+      requestDisplayRoute();
+    });
 }
 
 function handleNoGeolocation(errorFlag){
