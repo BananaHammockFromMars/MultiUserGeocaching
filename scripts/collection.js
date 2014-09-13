@@ -7,7 +7,7 @@ var destinations = [
     friend: "aleena",
   	password: "grab",
     personalPanelText: {
-      transition: '<h4>Happy Birthday, Amber!</h4><p>Time to see what your sneaky boyfriend has been up to!</p><p>Press: <a id="showDirections-faux" class="buttons directions"><div class="tripleMenu"></div></a> to see the driving directionsPress: <a id="parkedIt-faux" class="buttons finder"><div class="icon">&#xf183;</div></a> when you have parked the car Press: <a id="hideTextDetails-faux" class="buttons details-faux hidden"><div class="icon">&#xf1ea;</div></a> to hide these instructions</p>'
+      transition: '<h4>Happy Birthday, Amber!</h4><p>Time to see what your sneaky boyfriend has been up to!</p><p>Press: <span class="pp-icon">&#xf0c9;</span> to see the driving directions<br>Press: <span>&#xf183;</span> when you have parked the car <br>Press: <span class="pp-icon">&#xf1ea;</span> to hide these instructions</p>'
     }
   },
 
@@ -18,7 +18,7 @@ var destinations = [
     friend: "janine",
   	password: "follow",
     personalPanelText: {
-      transition: '<h4>Happy Birthday, Amber!</h4><p>Time to see what your sneaky boyfriend has been up to!</p><p>Press: <a id="showDirections-faux" class="buttons directions"><div class="tripleMenu"></div></a> to see the driving directionsPress: <a id="parkedIt-faux" class="buttons finder"><div class="icon">&#xf183;</div></a> when you have parked the car Press: <a id="hideTextDetails-faux" class="buttons details-faux hidden"><div class="icon">&#xf1ea;</div></a> to hide these instructions</p>'
+      transition: '<h4>What is that?</h4><p>Time to look for the key!</p><p>Did you like my extra little surpsrise there? I have been working a long time and a TON of hours to make you the best birthday I could think of. A little hiking, a little mystery, some important friends, and of course, LETTERS!</p><p>I know you love letters...</p><p>When you get this box, do NOT open it up yet. I will let you know when.</p><p>Hint: If you think to yourself "Oops!", press the button that says "Oops!" It may get you back on track.</p>'
     }
   },
   
@@ -29,7 +29,7 @@ var destinations = [
     friend: "leah",
   	password: "key",
     personalPanelText: {
-      transition: '<h4>Happy Birthday, Amber!</h4><p>Time to see what your sneaky boyfriend has been up to!</p><p>Press: <a id="showDirections-faux" class="buttons directions"><div class="tripleMenu"></div></a> to see the driving directionsPress: <a id="parkedIt-faux" class="buttons finder"><div class="icon">&#xf183;</div></a> when you have parked the car Press: <a id="hideTextDetails-faux" class="buttons details-faux hidden"><div class="icon">&#xf1ea;</div></a> to hide these instructions</p>'
+      transition: '<h4>That was a nice little Iowa family reunion!</h4><p>You still do not have the key, though...</p><p>While we are visiting places that you and I have gone (e.g. Hiking, Geocaching), you should head on over to that place where you and I have hung out the most. Maybe there is something there.</p>'
     }
   },
 
@@ -38,7 +38,7 @@ var destinations = [
     walk: {lat:39.0572805723788, lng:-94.60664295866621},
     password: "dog",
     personalPanelText: {
-      transition: '<h4>Happy Birthday, Amber!</h4><p>Time to see what your sneaky boyfriend has been up to!</p><p>Press: <a id="showDirections-faux" class="buttons directions"><div class="tripleMenu"></div></a> to see the driving directionsPress: <a id="parkedIt-faux" class="buttons finder"><div class="icon">&#xf183;</div></a> when you have parked the car Press: <a id="hideTextDetails-faux" class="buttons details-faux hidden"><div class="icon">&#xf1ea;</div></a> to hide these instructions</p>'
+      transition: '<h4>Time to change things up a bit!</h4><p>No more boxes, but lots more surprises!</p><p>Slow down for a while, though, and go grab some lunch. I think you are going to love it!</p><p>By the way, you need to get out that pair of Jokers and show people your card. That is your ID today to get the rest of the surprises.</p>'
     }
   },
 
@@ -47,7 +47,7 @@ var destinations = [
     walk: {lat: 39.208949912649985, lng: -94.65126798892021},
     password: "hug",
     personalPanelText: {
-      transition: '<h4>Happy Birthday, Amber!</h4><p>Time to see what your sneaky boyfriend has been up to!</p><p>Press: <a id="showDirections-faux" class="buttons directions"><div class="tripleMenu"></div></a> to see the driving directionsPress: <a id="parkedIt-faux" class="buttons finder"><div class="icon">&#xf183;</div></a> when you have parked the car Press: <a id="hideTextDetails-faux" class="buttons details-faux hidden"><div class="icon">&#xf1ea;</div></a> to hide these instructions</p>'
+      transition: '<h4>Was lunch good? Was it perfect?</h4><p>I have been aiming for perfect today, so I hope that you are getting perfect.</p><p>Now for something we have never done together, and honestly I have never done AT ALL myself.</p><p>Once again, follow the blue line, and just trust the map.</p><p>P.S. I have yet to tell you I love you today, but I do. I love you dearly.</p>'
     }
   },
   
@@ -56,7 +56,7 @@ var destinations = [
   	walk: {lat:39.0426078528567, lng:-94.59267862831115},
   	password: "string",
     personalPanelText: {
-      transition: '<h4>Happy Birthday, Amber!</h4><p>Time to see what your sneaky boyfriend has been up to!</p><p>Press: <a id="showDirections-faux" class="buttons directions"><div class="tripleMenu"></div></a> to see the driving directionsPress: <a id="parkedIt-faux" class="buttons finder"><div class="icon">&#xf183;</div></a> when you have parked the car Press: <a id="hideTextDetails-faux" class="buttons details-faux hidden"><div class="icon">&#xf1ea;</div></a> to hide these instructions</p>'
+      transition: '<h4>Shopping!</h4><p>Have you found the gift cards in the cigar box yet?</p><p>They are both for $75 each, so I hope you find some cool stuff today. Spend some time with your best pals today and just have fun with your purchases (for YOURSELF, that is the law).</p><p>Love you! I bet you look beautiful, and I cannot wait to see you.</p>'
     }
   },
   
@@ -65,7 +65,7 @@ var destinations = [
   	walk: {lat:39.03108459957071, lng:-94.59306566878661},
     password: "upupdowndownleftrightleftrightba",
     personalPanelText: {
-      transition: '<h4>Happy Birthday, Amber!</h4><p>Time to see what your sneaky boyfriend has been up to!</p><p>Press: <a id="showDirections-faux" class="buttons directions"><div class="tripleMenu"></div></a> to see the driving directionsPress: <a id="parkedIt-faux" class="buttons finder"><div class="icon">&#xf183;</div></a> when you have parked the car Press: <a id="hideTextDetails-faux" class="buttons details-faux hidden"><div class="icon">&#xf1ea;</div></a> to hide these instructions</p>'
+      transition: '<h4>This is IT!</h4><p>Final surprise.</p><p>No spoilers.</p>'
     }
   },
 
@@ -74,7 +74,7 @@ var destinations = [
     walk: {lat:39.12033729027072, lng: -94.59039379629519},
     password: "desk",
     personalPanelText: {
-      transition: '<h4>Happy Birthday, Amber!</h4><p>Time to see what your sneaky boyfriend has been up to!</p><p>Press: <a id="showDirections-faux" class="buttons directions"><div class="tripleMenu"></div></a> to see the driving directionsPress: <a id="parkedIt-faux" class="buttons finder"><div class="icon">&#xf183;</div></a> when you have parked the car Press: <a id="hideTextDetails-faux" class="buttons details-faux hidden"><div class="icon">&#xf1ea;</div></a> to hide these instructions</p>'
+      transition: ''
     }
   }
 ];

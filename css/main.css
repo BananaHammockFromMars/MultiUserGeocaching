@@ -20,12 +20,23 @@ body { height: 98%; margin: 0; padding: 0; background: black; position: relative
 	left: 0;
 	background:white;	
 	z-index:800;
+	font-family:FontAwesome;
+	text-align: center;
+}
+#personalPanel .pp-icon{
+	color: #528881;
+	font-size: 20px;
+	height: 30px;
+	width: 30px;
+	line-height: 22px;
+	display:inline-block;
 }
 
-#personalPanel .buttons{
-	position: initial;
-	height: 40px;
-	width: 40px;
+#directionsFaux {
+	box-shadow: 0 12px 0 2px #528881, 0 20px 0 2px #528881, 0 28px 0 2px #528881;
+	width:30px;
+	height
+
 }
 
 .buttons{
@@ -98,26 +109,4 @@ body { height: 98%; margin: 0; padding: 0; background: black; position: relative
 .glow{
 	color: rgb(200, 200, 0);
 	box-shadow: 0 0 10px 0 rgb(255, 255, 0);
-}
-
-#parkedIt-faux{
-	background:#BB3138;
-}
-#parkedIt-faux .icon{
-	margin: 4px 12px;
-	font-size: 30px;
-}
-#foundIt-faux{
-	background:#885159;
-}
-#foundIt-faux .icon{
-	margin: 5px 4px;
-	font-size: 32px;
-}
-.details-faux{
-	background:#885159;
-}
-.details-faux .icon{
-	margin: 9px 6px;
-	font-size: 24px;
 }
